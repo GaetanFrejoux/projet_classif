@@ -2,7 +2,7 @@ from numpy import mean
 from sklearn.naive_bayes import GaussianNB
 from sklearn.neighbors import KNeighborsClassifier
 from scipy import stats
-
+from matplotlib import pyplot as plt
 
 def stats_reduce(data):
     return stats.mode(data, keepdims=True)[0][0]

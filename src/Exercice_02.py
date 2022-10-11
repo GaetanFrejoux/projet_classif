@@ -1,68 +1,40 @@
 from numpy import (mean, array)
-from pandas import read_excel, ExcelFile
-from resources import (URL_KMEAN, URL_NON_GAUSSIEN,
-                       URL_PETIT, URL_GRAND)
-from utils import (gnb, knn, run_knn_tests)
-
-# Known informations ###########################################################
-CLASSIF_PETIT = [0]*20 + [1]*20 + [2]*20
-CLASSIF_GRAND = [0]*150 + [1]*150 + [2]*150
-MES1_LINE = 0
-MES2_LINE = 1
-ORACLE_LINE = 2
-################################################################################
-
-# Data loading ##################################################################
-
-# p1_petit
-EXCEL_PETIT = read_excel(URL_PETIT, sheet_name=[0, 1])
-APPRENT_PETIT = array([EXCEL_PETIT[0].iloc[MES1_LINE].values[1:],
-                      EXCEL_PETIT[0].iloc[MES2_LINE].values[1:]]).T
-INCONNU_PETIT = array([EXCEL_PETIT[1].iloc[MES1_LINE].values[1:],
-                      EXCEL_PETIT[1].iloc[MES2_LINE].values[1:]]).T
-ORACLE_PETIT = EXCEL_PETIT[1].iloc[ORACLE_LINE].values[1:]
-
-# p1_grand
-EXCEL_GRAND = read_excel(URL_GRAND, sheet_name=[0, 1])
-APPRENT_GRAND = array([EXCEL_GRAND[0].iloc[MES1_LINE].values[1:],
-                      EXCEL_GRAND[0].iloc[MES2_LINE].values[1:]]).T
-INCONNU_GRAND = array([EXCEL_GRAND[1].iloc[MES1_LINE].values[1:],
-                      EXCEL_GRAND[1].iloc[MES2_LINE].values[1:]]).T
-ORACLE_GRAND = EXCEL_GRAND[1].iloc[ORACLE_LINE].values[1:]
-
-# p1_Kmeans
-EXCEL_KMEANS = read_excel(URL_KMEAN, sheet_name=[0, 1])
-APPRENT_KMEANS = array([EXCEL_KMEANS[0].iloc[MES1_LINE].values[1:],
-                       EXCEL_KMEANS[0].iloc[MES2_LINE].values[1:]]).T
-CLASSIF_KMEANS = array(EXCEL_KMEANS[0].iloc[2].values[1:]).astype(int)
-INCONNU_KMEANS = array([EXCEL_KMEANS[1].iloc[MES1_LINE].values[1:],
-                       EXCEL_KMEANS[1].iloc[MES2_LINE].values[1:]]).T
-ORACLE_KMEANS = EXCEL_KMEANS[1].iloc[ORACLE_LINE].values[1:]
-
-# p1_NonGaussien
-EXCEL_NONGAUSSIEN = read_excel(URL_NON_GAUSSIEN, sheet_name=[0, 1])
-APPRENT_NONGAUSSIEN = array([EXCEL_NONGAUSSIEN[0].iloc[MES1_LINE].values[1:],
-                            EXCEL_NONGAUSSIEN[0].iloc[MES2_LINE].values[1:]]).T
-CLASSIF_NONGAUSSIEN = array(
-    EXCEL_NONGAUSSIEN[0].iloc[2].values[1:]).astype(int)
-INCONNU_NONGAUSSIEN = array([EXCEL_NONGAUSSIEN[1].iloc[MES1_LINE].values[1:],
-                            EXCEL_NONGAUSSIEN[1].iloc[MES2_LINE].values[1:]]).T
-ORACLE_NONGAUSSIEN = EXCEL_NONGAUSSIEN[1].iloc[ORACLE_LINE].values[1:]
+from pandas import read_excel
+from resources import (URL_KMEAN, URL_NON_GAUSSIEN, URL_PETIT, URL_GRAND)
+from utils import (gnb, run_knn_tests)
 
 # 2.1
-print(mean(ORACLE_PETIT != gnb(APPRENT_PETIT, CLASSIF_PETIT, INCONNU_PETIT)))
-run_knn_tests(APPRENT_PETIT, CLASSIF_PETIT, INCONNU_PETIT, ORACLE_PETIT)
+EXCEL_1 = read_excel(URL_PETIT, sheet_name=[0, 1])
+APPRENT_1 = EXCEL_1[0].iloc[:2, 1:].T
+INCONNU_1 = EXCEL_1[1].iloc[:2, 1:].T
+ORACLE_1 = EXCEL_1[1].iloc[2].values[1:]
+CLASSIF_1 = [0]*20 + [1]*20 + [2]*20
+print(mean(ORACLE_1 != gnb(APPRENT_1, CLASSIF_1, INCONNU_1)))
+run_knn_tests(APPRENT_1, CLASSIF_1, INCONNU_1, ORACLE_1)
 
 # 2.2
-print(mean(ORACLE_GRAND != gnb(APPRENT_GRAND, CLASSIF_GRAND, INCONNU_GRAND)))
-run_knn_tests(APPRENT_GRAND, CLASSIF_GRAND, INCONNU_GRAND, ORACLE_GRAND)
+EXCEL_2 = read_excel(URL_GRAND, sheet_name=[0, 1])
+APPRENT_2 = EXCEL_2[0].iloc[:2, 1:].T
+INCONNU_2 = EXCEL_2[1].iloc[:2, 1:].T
+ORACLE_2 = EXCEL_2[1].iloc[2].values[1:]
+CLASSIF_2 = [0]*150 + [1]*150 + [2]*150
+print(mean(ORACLE_2 != gnb(APPRENT_2, CLASSIF_2, INCONNU_2)))
+run_knn_tests(APPRENT_2, CLASSIF_2, INCONNU_2, ORACLE_2)
 
 # 2.3
-print(mean(ORACLE_KMEANS != gnb(APPRENT_KMEANS, CLASSIF_KMEANS, INCONNU_KMEANS)))
-run_knn_tests(APPRENT_KMEANS, CLASSIF_KMEANS, INCONNU_KMEANS, ORACLE_KMEANS)
+EXCEL_3 = read_excel(URL_KMEAN, sheet_name=[0, 1])
+APPRENT_3 = EXCEL_3[0].iloc[:2, 1:].T
+INCONNU_3 = EXCEL_3[1].iloc[:2, 1:].T
+ORACLE_3 = EXCEL_3[1].iloc[2].values[1:]
+CLASSIF_3 = array(EXCEL_3[0].iloc[2].values[1:]).astype(int)
+print(mean(ORACLE_3 != gnb(APPRENT_3, CLASSIF_3, INCONNU_3)))
+run_knn_tests(APPRENT_3, CLASSIF_3, INCONNU_3, ORACLE_3)
 
 # 2.4
-print(mean(ORACLE_NONGAUSSIEN != gnb(APPRENT_NONGAUSSIEN,
-      CLASSIF_NONGAUSSIEN, INCONNU_NONGAUSSIEN)))
-run_knn_tests(APPRENT_NONGAUSSIEN, CLASSIF_NONGAUSSIEN,
-              INCONNU_NONGAUSSIEN, ORACLE_NONGAUSSIEN)
+EXCEL_4 = read_excel(URL_NON_GAUSSIEN, sheet_name=[0, 1])
+APPRENT_4 = EXCEL_4[0].iloc[:2, 1:].T
+INCONNU_4 = EXCEL_4[1].iloc[:2, 1:].T
+ORACLE_4 = EXCEL_4[1].iloc[2].values[1:]
+CLASSIF_4 = array(EXCEL_4[0].iloc[2].values[1:]).astype(int)
+print(mean(ORACLE_4 != gnb(APPRENT_4, CLASSIF_4, INCONNU_4)))
+run_knn_tests(APPRENT_4, CLASSIF_4, INCONNU_4, ORACLE_4)

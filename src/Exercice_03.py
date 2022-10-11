@@ -3,12 +3,10 @@ from resources import URL_WANG
 from utils import run_knn_tests
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.model_selection import train_test_split
-# 3
+
 TYPE = ["PHOG", "JCD", "CEDD", "FCTH", "FCH"]
 EXCEL_WANG = read_excel(URL_WANG, sheet_name=[0, 1, 2, 3, 4], header=None)
 
-# Extraction de toutes les données
-#for i = 0 to 999
 for i in range(5):
     print(TYPE[i])
     CLASSIF_WANG = []
