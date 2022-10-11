@@ -7,4 +7,8 @@ URL_GRAND =         "../res/p1_grand.xlsx"          # p1_grand.xlsx
 URL_KMEAN =         "../res/p1_Kmean.xlsx"          # p1_Kmean
 URL_NON_GAUSSIEN =  "../res/p1_NonGaussien.xlsx"    # p1_NonGaussien
 URL_WANG =          "../res/WangSignatures.xls"     # WangSignatures
+URL_RESULTS =       "../res/Results/"               # Results
+EX1_RESULTS =       "../res/Results/Exercice_01/"   # Exercice_01 Results
+EX2_RESULTS =       "../res/Results/Exercice_02/"   # Exercice_02 Results
+EX3_RESULTS =       "../res/Results/Exercice_03/"   # Exercice_03 Results
 #####################################################################

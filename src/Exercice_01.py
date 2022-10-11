@@ -1,5 +1,4 @@
 import numpy as np
-from pandas.util._decorators import (Appender, doc)
 from scipy.io import loadmat
 from resources import URL_TEST
 from utils import stats_reduce
