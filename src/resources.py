@@ -1,6 +1,10 @@
 # Authors : Frejoux Gaetan, Niord Mathieu
 
-# Resources ########################################################
+# Known information ################################################
+K_RANGE = [1, 3, 5, 7, 13, 15]
+####################################################################
+
+# Links ############################################################
 URL_TEST =          "../res/p1_test.mat"            # p1_test.mat
 URL_PETIT =         "../res/p1_petit.xlsx"          # p1_petit.xlsx
 URL_GRAND =         "../res/p1_grand.xlsx"          # p1_grand.xlsx

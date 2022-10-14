@@ -1,4 +1,4 @@
-from pandas import read_excel, ExcelFile
+from pandas import read_excel
 from resources import URL_WANG
 from utils import run_knn_tests
 from sklearn.naive_bayes import MultinomialNB

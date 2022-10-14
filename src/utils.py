@@ -1,18 +1,26 @@
 from numpy import (mean, array)
 from sklearn.naive_bayes import GaussianNB
 from sklearn.neighbors import KNeighborsClassifier
-from scipy import stats
 from matplotlib import pyplot as plt
+from resources import K_RANGE
 
-def stats_reduce(data):
-    return stats.mode(data, keepdims=True)[0][0]
+def get_knn(X_train, y_train, X_test, Oracle):
+    min = 100
+    knn_result = []
+    for k in K_RANGE:
+        Knn = knn(X_train, y_train, X_test, k)
+        Error_Percent = mean(Knn != Oracle) * 100
+        if Error_Percent < min:
+            min = Error_Percent 
+            knn_result = Knn
+    return knn_result
 
 
 def gnb(X_train, y_train, X_test):
     """
     Parametric discrimination - Gaussian Naive Bayes
 
-    Refrences
+    References
     ---------
         #module-sklearn.naive_bayes
         - https://scikit-learn.org/stable/modules/classes.html?highlight=bayes
@@ -35,7 +43,7 @@ def knn(X_train, y_train, X_test, k):
     """
     K Nearest Neighbors
 
-    Refrence
+    Reference
     --------
     https://scikit-learn.org/stable/modules/neighbors.html
 
@@ -53,38 +61,30 @@ def knn(X_train, y_train, X_test, k):
     return KNeighborsClassifier(n_neighbors=k).fit(X_train, y_train).predict(X_test)
 
 
-def run_knn_tests(X_train, y_train, X_test, oracle):
+def run_knn_tests(X_train, y_train, X_test, Oracle):
     print('\n=======\nResults for knn on 1, 3, 5, 7, 9, 11, 13 and 15 values\n')
-    for i in [1, 3, 5, 7, 13, 15]:
-        print('k =', i, '\t=>', mean(knn(X_train, y_train, X_test, i) != oracle))
+    for k in K_RANGE:
+        print('k =', k, '\t=>', mean(knn(X_train, y_train, X_test, k) != Oracle))
     print('=======\n')
 
-
-def show_errors(X_train, y_train, X_test, oracle, save=False, name='errors'):
+# 
+def show_errors(X_train, y_train, X_test, Oracle, Image_Name='', Save_Status=False):
     knn_errors = []
-    gnn_error = mean(oracle != gnb(X_train, y_train, X_test)) * 100
-    for k in [1, 3, 5, 7, 13, 15]:
-        knn_errors.append([k, mean(knn(X_train, y_train, X_test, k) != oracle) * 100])
+    gnn_error = mean(Oracle != gnb(X_train, y_train, X_test)) * 100
+    # Run the knn with k included in K_RANGE
+    for k in K_RANGE:
+        knn_errors.append([k, mean(knn(X_train, y_train, X_test, k) != Oracle) * 100])
+    # Construction
     plt.plot(array(knn_errors)[:, 0], array(knn_errors)[:, 1], label="KNN")
     plt.plot([1, 15], [gnn_error, gnn_error], label="GNB")
-    plt.legend()
-    if save: plt.savefig(name + '_ERRORS.png')
+    # Save or display
+    if Save_Status and (not Image_Name == ''): plt.savefig(Image_Name + '_[ERRORS].png')
+    else: plt.show()
+    plt.close() # Clear
+
+# Scatter graphic generator for data that are coming from an excel file
+def scatter_classif(X_test, Classif_Array, save=False, name=''):
+    plt.scatter(X_test.iloc[:, 0], X_test.iloc[:, 1], c=Classif_Array)
+    if save and (not name == ''): plt.savefig(name + '_[CLASSIF].png')
     else: plt.show()
     plt.close()
-
-def scatter_classif(X_test, classif_array, save=False, name='classif'):
-    #scatter based on X_test and classed by knn_classif
-    plt.scatter(X_test.iloc[:, 0], X_test.iloc[:, 1], c=classif_array)
-    plt.legend()
-    if save: plt.savefig(name + '_CLASSIF.png')
-    else: plt.show()
-    plt.close()
-
-def show_classif(X_test, knn_classif, gnn_classif, oracle, save=False, name='classif'):
-    #scatter based on X_test and classed by knn_classif
-    scatter_classif(X_test, knn_classif, save, name + '_KNN')
-    #scatter based on X_test and classed by gnn_classif
-    scatter_classif(X_test, gnn_classif, save, name + '_GNB')
-    #scatter based on X_test and classed by oracle
-    scatter_classif(X_test, oracle, save, name + '_ORACLE')
-
