@@ -1,3 +1,5 @@
+# Authors : Frejoux Gaetan, Niord Mathieu
+
 from numpy import (mean, array)
 from sklearn.naive_bayes import GaussianNB
 from sklearn.neighbors import KNeighborsClassifier

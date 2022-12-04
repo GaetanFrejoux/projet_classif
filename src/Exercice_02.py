@@ -1,5 +1,7 @@
+# Authors : Frejoux Gaetan, Niord Mathieu
+
 from pandas import read_excel
-from resources import (URL_KMEAN, URL_NON_GAUSSIEN, URL_PETIT, URL_GRAND, EX2_RESULTS)
+from resources import (URL_KMEAN, URL_NON_GAUSSIEN, URL_PETIT, URL_GRAND, EX2_RESULTS, SAVE_FIG)
 from utils import (gnb, show_errors, scatter_classif, get_knn, run_knn_tests)
 
 def show_classif_results(X_test, Knn, Gnb, Oracle, Image_Name='', Save_Status=False):
@@ -34,8 +36,8 @@ Knn_Petit = get_knn(APPRENT_1, CLASSIF_1, INCONNU_1, ORACLE_1)
 Gnb_Petit = gnb(APPRENT_1, CLASSIF_1, INCONNU_1)
 
 run_knn_tests(APPRENT_1, CLASSIF_1, INCONNU_1, ORACLE_1)
-show_errors(APPRENT_1, CLASSIF_1, INCONNU_1, ORACLE_1, EX2_RESULTS + 'PETIT', True)
-show_classif_results(INCONNU_1, Knn_Petit, Gnb_Petit, ORACLE_1, 'PETIT', True)
+show_errors(APPRENT_1, CLASSIF_1, INCONNU_1, ORACLE_1, EX2_RESULTS + 'PETIT', SAVE_FIG)
+show_classif_results(INCONNU_1, Knn_Petit, Gnb_Petit, ORACLE_1, 'PETIT', SAVE_FIG)
 ################################################################################
 
 # 2.2 - Big array
@@ -52,8 +54,8 @@ Knn_Grand = get_knn(APPRENT_2, CLASSIF_2, INCONNU_2, ORACLE_2)
 Gnb_Grand = gnb(APPRENT_2, CLASSIF_2, INCONNU_2)
 
 run_knn_tests(APPRENT_2, CLASSIF_2, INCONNU_2, ORACLE_2)
-show_errors(APPRENT_2, CLASSIF_2, INCONNU_2, ORACLE_2, EX2_RESULTS + 'GRAND', True)
-show_classif_results(INCONNU_2, Knn_Grand, Gnb_Grand, ORACLE_2, 'GRAND', True)
+show_errors(APPRENT_2, CLASSIF_2, INCONNU_2, ORACLE_2, EX2_RESULTS + 'GRAND', SAVE_FIG)
+show_classif_results(INCONNU_2, Knn_Grand, Gnb_Grand, ORACLE_2, 'GRAND', SAVE_FIG)
 ################################################################################
 
 # 2.3 - K-Mean
@@ -70,8 +72,8 @@ Knn_KMean = get_knn(APPRENT_3, CLASSIF_3, INCONNU_3, ORACLE_3)
 Gnb_KMean = gnb(APPRENT_3, CLASSIF_3, INCONNU_3)
 
 run_knn_tests(APPRENT_3, CLASSIF_3, INCONNU_3, ORACLE_3)
-show_errors(APPRENT_3, CLASSIF_3, INCONNU_3, ORACLE_3, EX2_RESULTS + 'KMEAN', True)
-show_classif_results(INCONNU_3, Knn_KMean, Gnb_KMean, ORACLE_3, 'KMEAN', True)
+show_errors(APPRENT_3, CLASSIF_3, INCONNU_3, ORACLE_3, EX2_RESULTS + 'KMEAN', SAVE_FIG)
+show_classif_results(INCONNU_3, Knn_KMean, Gnb_KMean, ORACLE_3, 'KMEAN', SAVE_FIG)
 ################################################################################
 
 # 2.4 - Non Gaussian
@@ -88,6 +90,6 @@ Knn_Non_Gaussian = get_knn(APPRENT_4, CLASSIF_4, INCONNU_4, ORACLE_4)
 Gnb_Non_Gaussian = gnb(APPRENT_4, CLASSIF_4, INCONNU_4)
 
 run_knn_tests(APPRENT_4, CLASSIF_4, INCONNU_4, ORACLE_4)
-show_errors(APPRENT_4, CLASSIF_4, INCONNU_4, ORACLE_4, EX2_RESULTS + 'NON_GAUSSIEN', True)
-show_classif_results(INCONNU_4, Knn_Non_Gaussian, Gnb_Non_Gaussian, ORACLE_4, 'NON_GAUSSIEN', True)
+show_errors(APPRENT_4, CLASSIF_4, INCONNU_4, ORACLE_4, EX2_RESULTS + 'NON_GAUSSIEN', SAVE_FIG)
+show_classif_results(INCONNU_4, Knn_Non_Gaussian, Gnb_Non_Gaussian, ORACLE_4, 'NON_GAUSSIEN', SAVE_FIG)
 ################################################################################

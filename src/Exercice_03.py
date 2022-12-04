@@ -1,3 +1,5 @@
+# Authors : Frejoux Gaetan, Niord Mathieu
+
 from pandas import read_excel
 from resources import URL_WANG
 from utils import run_knn_tests
