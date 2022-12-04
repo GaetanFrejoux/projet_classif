@@ -34,9 +34,9 @@ def gnb(X_train, y_train, X_test):
         - y_train: Training data classification,
         - X_test: Data to classify
 
-    Returns
+    Return
     -------
-    TODO
+        - Classif_Array: Array of classification
     """
     return GaussianNB().fit(X_train, y_train).predict(X_test)
 
@@ -56,9 +56,9 @@ def knn(X_train, y_train, X_test, k):
         - X_test: ,
         - k: Number of neighbors to use by default for kneighbors queries
 
-    Returns
+    Return
     -------
-    TODO
+        - Classif_Array: Array of classification
     """
     return KNeighborsClassifier(n_neighbors=k).fit(X_train, y_train).predict(X_test)
 
