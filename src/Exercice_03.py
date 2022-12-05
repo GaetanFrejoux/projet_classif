@@ -53,3 +53,33 @@ print(1 - MultinomialNB().fit(X_train, y_train).score(X_test, y_test))
 y_pred = MultinomialNB().fit(X_train, y_train).predict(X_test)
 ConfusionMatrixDisplay.from_predictions(y_test, y_pred)
 plt.show()
+
+
+# function that asks the user to enter a number between 0 and 999 for the image to be classified
+# and ask the user to enter a number between 1 and 5 for the descriptor to be used
+# and ask ther user 1 for the KNN algorithm and 2 for the Naive Bayes algorithm
+# and print the classification of the image
+def classif_image_user_input():
+    image_number = int(input("Enter a number between 0 and 999 for the image to be classified: "))
+    descriptor_number = int(input("Enter a number between 1 and 5 for the descriptor to be used: PHOG = 1, JCD = 2, CEDD = 3, FCTH = 4, FCH = 5: "))
+    algorithm_number = int(input("Enter 1 for the KNN algorithm and 2 for the Naive Bayes algorithm: "))
+    image_name = str(image_number) + ".jpg"
+    image_class = int(image_name.split('.')[0]) // 100
+    descriptor_name = TYPE[descriptor_number - 1]
+    descriptor = EXCEL_WANG[descriptor_number - 1].iloc[image_number, 1:]
+    descriptor_list = EXCEL_WANG[descriptor_number - 1].iloc[:, 1:]
+    class_list = []
+    for j in EXCEL_WANG[descriptor_number - 1][0]:
+        class_list.append(int(j.split('.')[0]) // 100)
+    X_train, X_test, y_train, y_test = train_test_split(
+        descriptor_list, class_list, test_size=0.2, random_state=100)
+
+    if algorithm_number == 1:
+        classification = run_knn_tests(X_train, y_train, descriptor, image_class)
+    elif algorithm_number == 2:
+        classification = MultinomialNB().fit(X_train, y_train).predict([descriptor])
+
+    print("The classification of the image is: " + str(classification))
+
+
+classif_image_user_input()
