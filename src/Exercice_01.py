@@ -1,8 +1,10 @@
+# Authors : Frejoux Gaetan, Niord Mathieu
+
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.io import loadmat
 from scipy import stats
-from resources import (URL_TEST, EX1_RESULTS, K_RANGE)
+from resources import (URL_TEST, EX1_RESULTS, K_RANGE, SAVE_FIG)
 from utils import scatter_classif
 
 # Known data
@@ -86,7 +88,7 @@ def run_tests():
     print('=======\n')
 
 Kppv = get_kppv(APPRENT, CLASSIF, TEST, ORACLE)
-scatter_classif(TEST.T, ORACLE, True, EX1_RESULTS + 'Classification')
-scatter_classif(TEST.T, Kppv, True, EX1_RESULTS + 'Kppv')
-show_errors(APPRENT, CLASSIF, TEST, ORACLE, EX1_RESULTS + "Test", True)
+scatter_classif(TEST.T, ORACLE, SAVE_FIG, EX1_RESULTS + 'Classification')
+scatter_classif(TEST.T, Kppv, SAVE_FIG, EX1_RESULTS + 'Kppv')
+show_errors(APPRENT, CLASSIF, TEST, ORACLE, EX1_RESULTS + "Test", SAVE_FIG)
 run_tests()
